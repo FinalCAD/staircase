@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+
+# load './spec/support/adapters/active_record.rb'
+# load './spec/support/data.rb'
+
+require 'irb'
+IRB.start
