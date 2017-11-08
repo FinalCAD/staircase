@@ -6,7 +6,7 @@ rescue LoadError
 end
 
 # require_relative 'support/adapters/active_record'
-require_relative '../lib/change_locale'
+require_relative '../lib/parse_log'
 # require_relative '../lib/tests/elevator_stops'
 # require_relative '../lib/tests/countries_count'
 

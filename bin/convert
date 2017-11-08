@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/parse_log.rb'
+
+cl = ParseLog.new
+cl.option_parser.parse!(ARGV)
+cl.convert

@@ -1,5 +1,0 @@
-require_relative 'change_locale/types/date_type'
-require_relative 'change_locale/types/currency_type'
-require_relative 'change_locale/csv_convert/pro/array_convertor'
-require_relative 'change_locale/csv_convert/pro/row_convertor'
-require_relative 'change_locale/csv_convert/pro/cell_convertor'
