@@ -1,21 +1,22 @@
 module Composer
   module Import
     class VirtualPath
-      def initialize(path)
-        @path = path
+      def initialize(source_path)
+        @source_path = source_path
       end
 
       def to_s
-        path
+        source_path
       end
+      alias_method :path, :to_s
 
       def exists?
-        File.exists?(path)
+        File.exists?(source_path)
       end
 
       private
 
-      attr_reader :path
+      attr_reader :source_path
     end
   end
 end

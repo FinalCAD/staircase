@@ -1,6 +1,12 @@
 require 'active_support/all'
 # require 'active_support/concern'
 
+require_relative 'composer/converter/base'
+require_relative 'composer/converter/pdf_to_image'
+
+require_relative 'composer/processors/pdf_to_png'
+
+require_relative 'composer/export'
 require_relative 'composer/import'
 require_relative 'composer/model'
 
