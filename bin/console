@@ -2,7 +2,7 @@
 
 require 'bundler/setup'
 
-load 'lib/parse_log.rb'
+load 'lib/composer.rb'
 
 require 'irb'
 IRB.start
