@@ -4,8 +4,8 @@ module Composer
 
       attr_reader :registry
 
-      def initialize(registry=Stores::Register)
-        @registry ||= registry.get
+      def initialize(registry=Stores::Registry)
+        @registry ||= registry.instance
       end
 
       def dispatch(model)
@@ -13,16 +13,17 @@ module Composer
 
         if is_staircase?(model) # A/Path/Staircases/<Staircase Name>
           staircase = Models::Staircase.new(model.staircase_name, model.source_path)
-          registry.append_staircase(staircase)
+          registry.append_input(staircase)
+
         elsif is_localisation?(model) # A/Path/Staircases/<Staircase Name>/Sectors/<Sector Name>.<extension>
           if localisation_type(model) == 'Sectors'
             sector = Models::Sector.new(sector_name(model), model.source_path)
-            registry.staircases[model.staircase_name].append_sector(sector)
+            registry.inputs[model.staircase_name].append_sector(sector)
           else
             return unless zone_name(model) # A/Path/Staircases/<Staircase Name>/Zones/<Sector Name>/
 
             zone = Models::Zone.new(zone_name(model), model.source_path)
-            sector = registry.staircases[model.staircase_name].sectors[sector_name(model)]
+            sector = registry.inputs[model.staircase_name].sectors[sector_name(model)]
             sector.append_zone(zone)
           end
         end

@@ -3,7 +3,7 @@ module Composer
     module Base
       extend ActiveSupport::Concern
 
-      attr_reader :source_path
+      attr_reader :path, :name
 
     end
   end

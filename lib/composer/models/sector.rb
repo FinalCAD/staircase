@@ -1,19 +1,13 @@
 module Composer
   module Models
     class Sector
-      include Base
+      include FileBase
 
-      attr_reader :name, :zones
+      attr_reader :zones
 
-      def initialize(name, path)
-        @name        = File.basename(name, File.extname(name))
-        @source_path = path.gsub(name,'')
-        @types       = {}
-        @zones       = {}
-      end
-
-      def path(type)
-        Import::VirtualPath.new("#{@source_path}#{name}.#{type}")
+      def initialize(name, full_path)
+        super
+        @zones = {}
       end
 
       def append_zone(zone)

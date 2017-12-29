@@ -10,7 +10,7 @@ loop do
   dispatcher.dispatch(model)
 end
 
-registry = Composer::Stores::Register.instance
+registry = Composer::Stores::Registry.instance
 registry.staircases
 
 Staircases\<Staircase Name>\Sectors\<Sector Name>.json

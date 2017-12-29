@@ -10,9 +10,11 @@ require_relative 'composer/export'
 require_relative 'composer/import'
 require_relative 'composer/model'
 
-require_relative 'composer/stores/register'
+require_relative 'composer/stores/registry'
 
 require_relative 'composer/models/base'
+require_relative 'composer/models/file_base'
+require_relative 'composer/models/dir_base'
 require_relative 'composer/models/staircase'
 require_relative 'composer/models/sector'
 require_relative 'composer/models/zone'

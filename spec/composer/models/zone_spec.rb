@@ -8,7 +8,7 @@ describe Composer::Models::Zone do
 
   it do
     expect(subject.name).to eql('A Zone')
-    expect(subject.path(:png).to_s).to eql(path)
-    expect(subject.path(:png)).to_not be_exists
+    expect(subject.source_path(:png).to_s).to eql(path)
+    expect(subject.source_path(:png)).to_not be_exists
   end
 end

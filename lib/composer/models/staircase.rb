@@ -1,19 +1,13 @@
 module Composer
   module Models
     class Staircase
-      include Base
+      include DirBase
 
-      attr_reader :name, :sectors
+      attr_reader :sectors
 
-      def initialize(name, path)
-        @name        = name
-        @source_path = path.gsub(name,'')
-        @types       = {}
-        @sectors     = {}
-      end
-
-      def path
-        Import::VirtualPath.new("#{@source_path}/#{name}")
+      def initialize(name, full_path)
+        super
+        @sectors = {}
       end
 
       def append_sector(sector)

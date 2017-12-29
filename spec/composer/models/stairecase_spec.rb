@@ -8,8 +8,8 @@ describe Composer::Models::Staircase do
 
   it do
     expect(subject.name).to eql('A Staircase')
-    expect(subject.path.to_s).to eql("#{path}/#{name}")
-    expect(subject.path).to_not be_exists
+    expect(subject.source_path.to_s).to eql("#{path}/#{name}")
+    expect(subject.source_path).to_not be_exists
     expect(subject.sectors).to eql({})
   end
 
@@ -27,7 +27,7 @@ describe Composer::Models::Staircase do
       }.from([]).to(['A Sector'])
 
       expect(subject.sectors['A Sector']).to eql(sector)
-      expect(subject.sectors['A Sector'].path(:png).to_s).to eql(sector_path)
+      expect(subject.sectors['A Sector'].source_path(:png).to_s).to eql(sector_path)
     end
   end
 end

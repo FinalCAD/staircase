@@ -4,9 +4,9 @@ module Composer
 
       def process(staircase_model)
         staircase_model.sectors.each do |_, sector_model|
-          copy(convert(sector_model.path(:pdf)), sector_model.path(:png))
+          copy(convert(sector_model.source_path(:pdf)), sector_model.source_path(:png))
           sector_model.zones.each do |_, zone_model|
-            copy(convert(zone_model.path(:pdf)), zone_model.path(:png))
+            copy(convert(zone_model.source_path(:pdf)), zone_model.source_path(:png))
           end
         end
       end

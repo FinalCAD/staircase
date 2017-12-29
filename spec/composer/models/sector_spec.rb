@@ -8,8 +8,8 @@ describe Composer::Models::Sector do
 
   it do
     expect(subject.name).to eql('A Sector')
-    expect(subject.path(:png).to_s).to eql(path)
-    expect(subject.path(:png)).to_not be_exists
+    expect(subject.source_path(:png).to_s).to eql(path)
+    expect(subject.source_path(:png)).to_not be_exists
     expect(subject.zones).to eql({})
   end
 
@@ -27,8 +27,8 @@ describe Composer::Models::Sector do
       }.from([]).to(['A Zone'])
 
       expect(subject.zones['A Zone']).to eql(zone)
-      expect(subject.zones['A Zone'].path(:png).to_s).to eql(zone_path)
-      expect(subject.path(:png)).to_not be_exists
+      expect(subject.zones['A Zone'].source_path(:png).to_s).to eql(zone_path)
+      expect(subject.source_path(:png)).to_not be_exists
     end
   end
 end
