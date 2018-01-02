@@ -7,9 +7,17 @@ describe Composer::Import::Dispatcher do
     let(:model)    { Composer::Model.new('spec/fixtures/archive/input/Staircases/Staircase Name 1') }
     let(:registry) { Composer::Stores::Registry.instance }
 
+    [
+      'spec/fixtures/archive/input/Staircases',
+      'spec/fixtures/archive/input/Staircases/Staircase Name 1/Sectors',
+      'spec/fixtures/archive/input/Staircases/Staircase Name 1/Zones/R+1'
+    ].each do |path_to_ignore|
+      it { expect(subject.dispatch(Composer::Model.new(path_to_ignore))).to eql(false) }
+    end
+
     it do
       expect {
-        subject.dispatch(model)
+        expect(subject.dispatch(model)).to eql(true)
       }.to change {
         registry.inputs.keys
       }.from([]).to(['Staircase Name 1'])
@@ -19,7 +27,7 @@ describe Composer::Import::Dispatcher do
       staircase = registry.inputs['Staircase Name 1']
 
       expect {
-        subject.dispatch(model)
+        expect(subject.dispatch(model)).to eql(true)
       }.to change {
         staircase.sectors.keys
       }.from([]).to(['R+1'])
@@ -29,7 +37,7 @@ describe Composer::Import::Dispatcher do
       sector = registry.inputs['Staircase Name 1'].sectors['R+1']
 
       expect {
-        subject.dispatch(model)
+        expect(subject.dispatch(model)).to eql(true)
       }.to change {
         sector.zones.keys
       }.from([]).to(['Logement 12-11-=-Architecte'])

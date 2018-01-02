@@ -1,12 +1,16 @@
 module Composer
   module Processors
-    class PdfToPng < Base
+    class ComposeGrid
+
+      def initialize(context={})
+        @export_path = context.fetch(:export_path)
+      end
 
       def process(staircase_model)
         staircase_model.sectors.each do |_, sector_model|
-          copy(convert(sector_model.full_path(:pdf)), sector_model.full_path(:png))
+          copy(convert(sector_model.source_path(:pdf)), sector_model.source_path(:png))
           sector_model.zones.each do |_, zone_model|
-            copy(convert(zone_model.full_path(:pdf)), zone_model.full_path(:png))
+            copy(convert(zone_model.source_path(:pdf)), zone_model.source_path(:png))
           end
         end
       end
@@ -18,20 +22,13 @@ module Composer
         Converter::PdfToImage.new(pdf_file, convert_options: image_convert_options).process
       end
 
-      def copy(from, to)
-        FileUtils.cp(from.path, to.path)
-      end
-
       def image_convert_options
         IMAGE_CONVERT_OPTIONS
       end
 
       IMAGE_CONVERT_OPTIONS = [
-          '-geometry 2109x1818',
-          '-colors 64',
-          '-depth 8',
-          '-density 450',
-          '+dither'
+        '-size 2109.0x1818.0',
+        'xc:#F4F5F6'
       ].freeze
       private_constant :IMAGE_CONVERT_OPTIONS
 

@@ -23,15 +23,7 @@ describe Composer::Import do
       let(:current_path) { 'whatever path' }
 
       it do
-        expect(subject).to be_skip
-      end
-    end
-
-    context do
-      let(:current_path) { 'Staircases' }
-
-      it do
-        expect(subject).to_not be_skip
+        expect(subject.source_path).to eql(current_path)
       end
     end
   end

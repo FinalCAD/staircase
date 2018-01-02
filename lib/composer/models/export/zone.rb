@@ -1,8 +1,9 @@
 module Composer
   module Models
-    class Zone
-      include FileBase
+    module Export
+      module Zone
 
+      end
     end
   end
 end

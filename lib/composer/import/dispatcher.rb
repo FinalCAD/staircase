@@ -2,58 +2,104 @@ module Composer
   module Import
     class Dispatcher
 
-      attr_reader :registry
+      attr_reader :registry, :staircase_name, :sector_name, :zone_name
 
       def initialize(registry=Stores::Registry)
         @registry ||= registry.instance
       end
 
       def dispatch(model)
-        return if is_nothing?(model) # A/Path/Staircases
+        type = ModelType.new(model)
+        name = ModelName.new(model)
 
-        if is_staircase?(model) # A/Path/Staircases/<Staircase Name>
-          staircase = Models::Staircase.new(model.staircase_name, model.source_path)
+        return false if type.skip? # A/Path/Staircases
+
+         # A/Path/Staircases/<Staircase Name>/Zones/<Sector Name>/<Zone Name>.<extension>
+        if type.zone?
+          @zone_name = name.filename
+          zone = Composer::Models::Import::Zone.new(model)
+          sector = registry.inputs[staircase_name].sectors[sector_name]
+          sector.append_zone(zone)
+          return true
+        end
+
+         # A/Path/Staircases/<Staircase Name>/Sectors/<Sector Name>.<extension>
+        if type.sector?
+          @sector_name = name.filename
+          sector = Composer::Models::Import::Sector.new(model)
+          registry.inputs[staircase_name].append_sector(sector)
+          return true
+        end
+
+        if type.staircase? # A/Path/Staircases/<Staircase Name>
+          @staircase_name = name.filename
+          staircase = Composer::Models::Import::Staircase.new(model)
           registry.append_input(staircase)
-
-        elsif is_localisation?(model) # A/Path/Staircases/<Staircase Name>/Sectors/<Sector Name>.<extension>
-          if localisation_type(model) == 'Sectors'
-            sector = Models::Sector.new(sector_name(model), model.source_path)
-            registry.inputs[model.staircase_name].append_sector(sector)
-          else
-            return unless zone_name(model) # A/Path/Staircases/<Staircase Name>/Zones/<Sector Name>/
-
-            zone = Models::Zone.new(zone_name(model), model.source_path)
-            sector = registry.inputs[model.staircase_name].sectors[sector_name(model)]
-            sector.append_zone(zone)
-          end
+          return true
         end
       end
 
-      private
+      class ModelName
 
-      def is_nothing?(model)
-        model.exploded_path[ model.staircase_index ].nil?
+        def initialize(model)
+          @model = model
+        end
+
+        def filename
+          model.exploded_path.last.split('.').first
+        end
+
+        private
+
+        attr_reader :model
       end
 
-      def is_staircase?(model)
-        model.exploded_path[ model.staircase_index + 1 ].nil?
+      class ModelType
+
+        def initialize(model)
+          @model = model
+        end
+
+        def skip?
+          shadow_zone? || shadow_sector_zone? || shadow_sector? || (!zone? && !sector? && !staircase?)
+        end
+
+        def staircase?
+          return false if zone?
+          return false if sector?
+          model.source_path =~ /Staircases\// && !file?
+        end
+
+        def shadow_sector?
+          model.source_path =~ /Sectors/ && !file?
+        end
+
+        def sector?
+          return false if zone?
+          model.source_path =~ /Sectors\// && file?
+        end
+
+        def shadow_sector_zone?
+          model.source_path =~ /Zones\// && !file?
+        end
+
+        def shadow_zone?
+          model.source_path =~ /Zones/ && !file?
+        end
+
+        def zone?
+          model.source_path =~ /Zones\// && file?
+        end
+
+        def file?
+          !File.directory?(model.source_path)
+        end
+
+        private
+
+        attr_reader :model
       end
 
-      def is_localisation?(model)
-        !model.exploded_path[ model.staircase_index + 2 ].nil?
-      end
-
-      def localisation_type(model)
-        model.exploded_path[ model.staircase_index + 1 ]
-      end
-
-      def sector_name(model)
-        model.exploded_path[ model.staircase_index + 2 ]
-      end
-
-      def zone_name(model)
-        model.exploded_path[ model.staircase_index + 3 ]
-      end
     end
   end
 end

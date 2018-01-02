@@ -10,7 +10,7 @@ module Composer
     end
 
     def skip?
-      !source_path.match(/Staircases/)
+      false
     end
 
     class_methods do
