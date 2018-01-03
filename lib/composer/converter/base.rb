@@ -1,3 +1,5 @@
+require 'shellwords'
+
 module Composer
   module Converter
     class Base
@@ -9,10 +11,6 @@ module Composer
 
       def process
         raise "implement this method"
-      end
-
-      def path
-        input.try(:path)
       end
     end
   end

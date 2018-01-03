@@ -9,20 +9,17 @@ module Composer
             copy(convert(zone_model.full_path(:pdf)), zone_model.full_path(:png))
           end
         end
+
+        nil
       end
 
       private
 
-      def convert(pdf_file)
-        return unless pdf_file.exists?
-        Converter::PdfToImage.new(pdf_file, convert_options: image_convert_options).process
+      def converter
+        @converter ||= 'Composer::Converter::PdfToImage'
       end
 
-      def copy(from, to)
-        FileUtils.cp(from.path, to.path)
-      end
-
-      def image_convert_options
+      def convert_options
         IMAGE_CONVERT_OPTIONS
       end
 
@@ -34,7 +31,6 @@ module Composer
           '+dither'
       ].freeze
       private_constant :IMAGE_CONVERT_OPTIONS
-
     end
   end
 end

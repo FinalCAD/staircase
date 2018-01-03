@@ -14,7 +14,11 @@ module Composer
 
     def generate
       registry.inputs.each do |_, staircase_model|
+        # Convert PDF to PNG
         Processors::PdfToPng.new(self).process(staircase_model)
+        # Reduce PNG Size
+        Processors::PngReduce.new(self).process(staircase_model)
+
         # Compose Png Sector and create Sector
         # Processors::ComposeGrid.new.process(staircase_model)
         # Compose Json Sector and update it
