@@ -6,7 +6,7 @@ describe Composer::Converter::PdfToImage do
 
   describe '#process' do
     subject { instance.process }
-    let(:temp_args) { %w[pdf_to_image .png] }
+    let(:temp_args) { %w[input .png] }
 
     before do
       expect(Tempfile).to receive(:new).with(temp_args).and_return(double(:tempfile, path: 'temp_path'))
@@ -18,7 +18,7 @@ describe Composer::Converter::PdfToImage do
     end
 
     context 'with options' do
-      let(:temp_args) { %w[pdf_to_image .ext] }
+      let(:temp_args) { %w[input .ext] }
       let(:options) { { convert_options: %w[blah bah], extension: 'ext' } }
 
       it 'calls the right command' do

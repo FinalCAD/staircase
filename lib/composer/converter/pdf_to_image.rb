@@ -22,8 +22,12 @@ module Composer
               '-alpha opaque',
               '-flatten'
           ] + options[:convert_options] + [ Shellwords.shellescape(input.path), file.path ]
-          system(cmd.join(' '))
+          run_command(cmd.join(' '))
           file
+        end
+
+        def run_command(cmd)
+          system(cmd)
         end
       end
     end
