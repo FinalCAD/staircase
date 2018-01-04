@@ -14,6 +14,10 @@ module Composer
         @height = ((square_height - marge_row) / grid.rows).round(2)
       end
 
+      def marge
+        40.0
+      end
+
       private
 
       attr_reader :grid
@@ -32,10 +36,6 @@ module Composer
 
       def square_width
         @square_width.to_f
-      end
-
-      def marge
-        40.0
       end
 
     end
