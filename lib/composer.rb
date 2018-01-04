@@ -26,3 +26,4 @@ require_relative 'composer/import/dispatcher'
 require_relative 'composer/import/virtual_path'
 
 require_relative 'composer/lib/grid'
+require_relative 'composer/lib/resize'
