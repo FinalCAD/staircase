@@ -24,3 +24,5 @@ require_relative 'composer/import/dir'
 require_relative 'composer/import/path'
 require_relative 'composer/import/dispatcher'
 require_relative 'composer/import/virtual_path'
+
+require_relative 'composer/lib/grid'
