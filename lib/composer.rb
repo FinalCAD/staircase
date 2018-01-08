@@ -5,6 +5,7 @@ require_relative 'composer/lib/size'
 require_relative 'composer/lib/position'
 require_relative 'composer/lib/dimension'
 require_relative 'composer/lib/point'
+require_relative 'composer/lib/cursor'
 
 require_relative 'composer/converter/base'
 require_relative 'composer/converter/pdf_to_image'
