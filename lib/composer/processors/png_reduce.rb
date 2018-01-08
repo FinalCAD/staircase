@@ -3,6 +3,8 @@ module Composer
     class PngReduce < Base
 
       def process(staircase_model)
+        set_resize(staircase_model.number_of_images)
+
         staircase_model.sectors.each do |_, sector_model|
           copy(convert(sector_model.full_path(:png)), sector_model.full_path(:png))
         end
@@ -12,18 +14,23 @@ module Composer
 
       private
 
+      def set_resize(number_of_images)
+        grid = Lib::Grid.new(number_of_images)
+        size = Lib::Size.new(grid: grid, dimension: Lib::Dimension.new(height: 2109.0, width: 1818.0)).call
+        set_convert_options(size)
+      end
+
+      def set_convert_options(size)
+        @options = [ "-resize #{size}" ]
+      end
+
       def converter
         @converter ||= 'Composer::Converter::SectorPngReduce'
       end
 
       def convert_options
-        IMAGE_REDUCE_OPTIONS
+        @options
       end
-
-      IMAGE_REDUCE_OPTIONS = [
-        '-resize 1054.5x909.0'
-      ].freeze
-      private_constant :IMAGE_REDUCE_OPTIONS
     end
   end
 end

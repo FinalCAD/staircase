@@ -1,33 +1,30 @@
+# Public: Give the coordinate X and Y where the image should be placed depends of where we are on the Matrix
+#
+# Need to know the dimension of the images and their marges.
+#
 module Composer
   module Lib
     class Position
 
-      def initialize(resize)
-        @resize = resize
+      def initialize(marge: Dimension.new(height: 40.0, width: 40.0), dimension:)
+        @marge, @dimension = marge, dimension
       end
 
       def point(column, row)
-        [
-          column_position(column),
-          row_position(row)
-        ]
+        Point.new(y: column_position(column), x: row_position(row))
       end
 
       private
 
+      attr_reader :marge, :dimension
+
       def column_position(column)
-        marge = (column + 1) * resize.marge
-        image_width = column * resize.width
-        marge + image_width
+        (column + 1) * marge.y + column * dimension.width
       end
 
       def row_position(row)
-        marge = (row + 1) * resize.marge
-        image_height = row * resize.height
-        marge + image_height
+        (row + 1) * marge.x + row * dimension.height
       end
-
-      attr_reader :resize
 
     end
   end

@@ -20,6 +20,10 @@ module Composer
           "Staircases#{File::SEPARATOR}#{name}"
         end
 
+        def number_of_images
+          sectors.keys.count
+        end
+
         alias_method :full_path, :source_path
 
         def append_sector(sector)

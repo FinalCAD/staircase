@@ -29,8 +29,11 @@ describe Composer::Models::Import::Staircase do
         subject.append_sector(sector)
       }.to change {
         subject.sectors.keys
-      }.from([]).to(['A Sector'])
+      }.from([]).to(['A Sector']).and change {
+        subject.number_of_images
+      }.by(+1)
 
+      expect(subject.number_of_images).to eql(1)
       expect(subject.sectors['A Sector']).to eql(sector)
       expect(subject.sectors['A Sector'].full_path.to_s).to eql('a/path/whatever/where/Staircases/A Staircase/Sectors/A Sector.png')
     end

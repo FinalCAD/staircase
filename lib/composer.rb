@@ -1,5 +1,11 @@
 require 'active_support/all'
 
+require_relative 'composer/lib/grid'
+require_relative 'composer/lib/size'
+require_relative 'composer/lib/position'
+require_relative 'composer/lib/dimension'
+require_relative 'composer/lib/point'
+
 require_relative 'composer/converter/base'
 require_relative 'composer/converter/pdf_to_image'
 require_relative 'composer/converter/sector_png_reduce'
@@ -24,7 +30,3 @@ require_relative 'composer/import/dir'
 require_relative 'composer/import/path'
 require_relative 'composer/import/dispatcher'
 require_relative 'composer/import/virtual_path'
-
-require_relative 'composer/lib/grid'
-require_relative 'composer/lib/resize'
-require_relative 'composer/lib/position'
