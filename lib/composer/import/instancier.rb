@@ -1,6 +1,6 @@
 module Composer
   module Import
-    class Dispatcher
+    class Instancier
 
       attr_reader :registry, :staircase_name, :sector_name, :zone_name
 
@@ -8,7 +8,7 @@ module Composer
         @registry ||= registry.instance
       end
 
-      def dispatch(model)
+      def call(model)
         type = ModelType.new(model)
         name = ModelName.new(model)
 

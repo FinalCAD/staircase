@@ -2,12 +2,12 @@ require 'pry'
 
 source_path = 'spec/fixtures/archive/input'
 instance = Composer::Import::Dir.new(source_path)
-dispatcher = Composer::Import::Dispatcher.new
+instancier = Composer::Import::Instancier.new
 
 loop do
   break unless (model = instance.next)
   next if model.skip?
-  dispatcher.dispatch(model)
+  instancier.call(model)
 end
 
 registry = Composer::Stores::Registry.instance

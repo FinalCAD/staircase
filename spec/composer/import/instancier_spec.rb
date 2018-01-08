@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'ostruct'
 
-describe Composer::Import::Dispatcher do
+describe Composer::Import::Instancier do
 
   context 'Add a Staircase' do
     let(:model)    { Composer::Model.new('spec/fixtures/archive/input/Staircases/Staircase Name 1') }
@@ -12,12 +12,12 @@ describe Composer::Import::Dispatcher do
       'spec/fixtures/archive/input/Staircases/Staircase Name 1/Sectors',
       'spec/fixtures/archive/input/Staircases/Staircase Name 1/Zones/R+1'
     ].each do |path_to_ignore|
-      it { expect(subject.dispatch(Composer::Model.new(path_to_ignore))).to eql(false) }
+      it { expect(subject.call(Composer::Model.new(path_to_ignore))).to eql(false) }
     end
 
     it do
       expect {
-        expect(subject.dispatch(model)).to eql(true)
+        expect(subject.call(model)).to eql(true)
       }.to change {
         registry.inputs.keys
       }.from([]).to(['Staircase Name 1'])
@@ -27,7 +27,7 @@ describe Composer::Import::Dispatcher do
       staircase = registry.inputs['Staircase Name 1']
 
       expect {
-        expect(subject.dispatch(model)).to eql(true)
+        expect(subject.call(model)).to eql(true)
       }.to change {
         staircase.sectors.keys
       }.from([]).to(['R+1'])
@@ -37,7 +37,7 @@ describe Composer::Import::Dispatcher do
       sector = registry.inputs['Staircase Name 1'].sectors['R+1']
 
       expect {
-        expect(subject.dispatch(model)).to eql(true)
+        expect(subject.call(model)).to eql(true)
       }.to change {
         sector.zones.keys
       }.from([]).to(['Logement 12-11-=-Architecte'])
