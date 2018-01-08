@@ -1,6 +1,6 @@
 module Composer
   module Import
-    class Instancier
+    class Instantiate
 
       attr_reader :registry, :staircase_name, :sector_name, :zone_name
 

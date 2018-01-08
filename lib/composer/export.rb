@@ -20,9 +20,7 @@ module Composer
         Processors::PngReduce.new(self).process(staircase_model)
 
         # Compose Png Sector and create Sector
-        # Processors::ComposeGrid.new.process(staircase_model)
-        # Compose Json Sector and update it
-        # Assemble Zones with name changing and JSON Update
+        # Processors::ComposeSector.new(self).process(staircase_model)
       end
     end
 

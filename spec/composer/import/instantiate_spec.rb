@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'ostruct'
 
-describe Composer::Import::Instancier do
+describe Composer::Import::Instantiate do
 
   context 'Add a Staircase' do
     let(:model)    { Composer::Model.new('spec/fixtures/archive/input/Staircases/Staircase Name 1') }
