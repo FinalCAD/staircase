@@ -20,6 +20,10 @@ module Composer
         [ y, x ]
       end
 
+      def to_s
+        to_a.map { |entry| "+#{entry}" }.join
+      end
+
     end
   end
 end
