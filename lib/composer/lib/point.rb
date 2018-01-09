@@ -17,9 +17,23 @@ module Composer
       alias_method :row, :x
 
       def to_a
-        [ y, x ]
+        [ x, y ]
       end
 
+      # Public: Returns the formatted instruction for imagemagick
+      #
+      # http://www.imagemagick.org/Usage/layers/#composition
+      # composite -geometry 40x40+5+10  balloon.gif comp_resize.gif comp_resize.gif
+      # <width>x<height>+<width + marge x * munber of columns>+<height + marge y * munber of rows>
+      #
+      # +<marge x>+<marge y>               - +<width + marge x * 2>+<marge y>
+      # +<marge x>+<height + marge y * 2>  - +<width + marge x * 2>+<height + marge y * 2>
+      #
+      # Examples
+      #
+      #   to_s
+      #   # => '+40.0+8.0'
+      #
       def to_s
         to_a.map { |entry| "+#{entry}" }.join
       end

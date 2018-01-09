@@ -10,12 +10,12 @@ describe Composer::Lib::Position do
     {
       point:  { column: 1, row: 0 },
       size:   { width: 2120.0, height: 1620.0 },
-      result: [ 2200.0, 40.0 ]
+      result: [ 40.0, 2200.0 ]
     },
     {
       point:  { column: 1, row: 1 },
       size:   { width: 2120.0, height: 1620.0 },
-      result: [ 2200.0, 1700.0 ]
+      result: [ 1700.0, 2200.0 ]
     }
   ].each do |info|
     context do

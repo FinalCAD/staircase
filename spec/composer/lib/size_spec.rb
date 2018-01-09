@@ -39,6 +39,7 @@ describe Composer::Lib::Size do
         expect(subject.target_dimension.width).to  eql(width)
         expect(subject.target_dimension.height).to eql(height)
         expect(original_image_dimension.ratio).to  eql(subject.target_dimension.ratio)
+        expect(subject.to_s).to eql("#{width}x#{height}")
       end
     end
   end

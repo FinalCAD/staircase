@@ -27,13 +27,17 @@ module Composer
 
       # Public: Returns the formatted instruction for imagemagick
       #
+      # http://www.imagemagick.org/Usage/layers/#composition
+      # composite -geometry 40x40+5+10  balloon.gif comp_resize.gif comp_resize.gif
+      # <width>x<height>+<width + marge x * munber of columns>+<height + marge y * munber of rows>
+      #
       # Examples
       #
       #   to_s
       #   # => '500.0x375.0'
       #
       def to_s
-        "#{target_dimension.height}x#{target_dimension.width}"
+        "#{target_dimension.width}x#{target_dimension.height}"
       end
 
       private
