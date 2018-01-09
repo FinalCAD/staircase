@@ -34,9 +34,11 @@ A Staircase can be see as a matrix, this matrix is the composition of sectors, i
 
 Too simplify the manipulation of those different files, the library load in memory those files as model
 
+```
 -- Staircase
  |-- Sectors
    |-- Zones
+```
 
 Like that we have all we need gathered in one Staircase model.
 

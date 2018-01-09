@@ -41,16 +41,11 @@ module Composer
       attr_reader :grid, :dimension, :marge
 
       def target_height
-        ((dimension.height - marge_row) / grid.rows).round(2)
+        @target_height ||= ((dimension.height - marge_row) / grid.rows).round(2)
       end
 
       def target_width
-        ((dimension.width  - marge_column) / grid.columns).round(2)
-      end
-
-      # Y Marge
-      def marge_column
-        marge.y * (grid.columns + 1)
+        (dimension.width / (dimension.height / target_height)).round(2)
       end
 
       # X Marge

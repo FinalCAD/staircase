@@ -5,17 +5,17 @@ describe Composer::Lib::Size do
     {
       image:  { size: { width: 2120.0, height: 1620.0 }},
       grid:   { columns: 2, rows: 2 },
-      resize: { width: 1000.0, height: 750.0 }
+      resize: { width: 981.48, height: 750.0 }
     },
     {
       image:  { size: { width: 2120.0, height: 1620.0 }},
       grid:   { columns: 3, rows: 2 },
-      resize: { width: 653.33, height: 750.0 }
+      resize: { width: 981.48, height: 750.0 }
     },
     {
       image:  { size: { width: 2200.0, height: 1700.0 }},
       grid:   { columns: 4, rows: 4 },
-      resize: { width: 500.00, height: 375.0 }
+      resize: { width: 485.29, height: 375.0 }
     }
   ].each do |info|
     context do
@@ -31,18 +31,14 @@ describe Composer::Lib::Size do
         Composer::Lib::Dimension.new(height: info.dig(:image, :size, :height), width: info.dig(:image, :size, :width))
       end
 
-      before do
-        expect(grid).to receive(:columns).at_least(:once) { columns }
-        expect(grid).to receive(:rows).at_least(:once)    { rows }
-      end
+      before { expect(grid).to receive(:rows).at_least(:once) { rows } }
 
-      subject do
-        described_class.new(grid: grid, dimension: original_image_dimension).call
-      end
+      subject { described_class.new(grid: grid, dimension: original_image_dimension).call }
 
       it do
         expect(subject.target_dimension.width).to  eql(width)
         expect(subject.target_dimension.height).to eql(height)
+        expect(original_image_dimension.ratio).to  eql(subject.target_dimension.ratio)
       end
     end
   end
