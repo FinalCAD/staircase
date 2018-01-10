@@ -11,11 +11,12 @@ module Composer
       private
 
       def convert(file)
-        return unless file.exists?
+        return unless File.exists?(file.path)
         converter.constantize.new(file, convert_options: convert_options).process
       end
 
       def copy(from, to)
+        FileUtils.mkdir_p(File.dirname(to.path))
         FileUtils.cp(from.path, to.path)
       end
 

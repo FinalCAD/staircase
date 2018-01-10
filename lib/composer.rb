@@ -14,6 +14,7 @@ require_relative 'composer/converter/sector_png_reduce'
 require_relative 'composer/processors/base'
 require_relative 'composer/processors/pdf_to_png'
 require_relative 'composer/processors/png_reduce'
+require_relative 'composer/processors/create_layout'
 
 require_relative 'composer/export'
 require_relative 'composer/import'
