@@ -16,6 +16,10 @@ module Composer
       end
       alias_method :x, :width
 
+      def to_s
+        "#{width}x#{height}"
+      end
+
       def ratio
         (width / height).round(2)
       end
