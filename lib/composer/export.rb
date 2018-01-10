@@ -7,7 +7,7 @@ module Composer
 
     def initialize(registry=Composer::Stores::Registry)
       @registry    = registry.instance
-      @export_path = 'spec/fixtures/archive/ouput'
+      @export_path = 'spec/fixtures/archive/output'
 
       FileUtils::mkdir_p(export_path)
     end
@@ -18,9 +18,8 @@ module Composer
         Processors::PdfToPng.new(self).process(staircase_model)
         # Reduce PNG Size
         Processors::PngReduce.new(self).process(staircase_model)
-
-        # Compose Png Sector and create Sector
-        # Processors::ComposeSector.new(self).process(staircase_model)
+        # Reduce PNG Size
+        Processors::CreateLayout.new(self).process(staircase_model)
       end
     end
 
