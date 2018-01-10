@@ -9,12 +9,12 @@ module Composer
       def y
         @y.to_f
       end
-      alias_method :column, :y
+      alias_method :row, :y
 
       def x
         @x.to_f
       end
-      alias_method :row, :x
+      alias_method :column, :x
 
       def to_a
         [ x, y ]

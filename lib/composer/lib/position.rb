@@ -6,24 +6,26 @@ module Composer
   module Lib
     class Position
 
-      def initialize(marge: Dimension.new(height: 40.0, width: 40.0), dimension:)
-        @marge, @dimension = marge, dimension
+      def initialize(marge: Dimension.new(height: 40.0, width: 40.0), dimension:, footer: 0.0)
+        @marge     = marge
+        @dimension = dimension
+        @footer    = footer
       end
 
-      def point(column, row)
-        Point.new(y: column_position(column), x: row_position(row))
+      def coordinate(column:, row:)
+        Point.new(y: position_y(row), x: position_x(column))
       end
 
       private
 
-      attr_reader :marge, :dimension
+      attr_reader :marge, :dimension, :footer
 
-      def column_position(column)
-        (column + 1) * marge.y + column * dimension.width
+      def position_y(row)
+        ((row + 1) * marge.y + row * dimension.height) + (row * footer)
       end
 
-      def row_position(row)
-        (row + 1) * marge.x + row * dimension.height
+      def position_x(column)
+        (column + 1) * marge.x + column * dimension.width
       end
 
     end

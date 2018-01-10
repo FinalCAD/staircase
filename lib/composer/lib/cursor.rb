@@ -8,7 +8,7 @@ module Composer
       end
 
       def move
-        Point.new(y: next_column, x: next_row)
+        Point.new(x: next_column, y: next_row)
       end
 
       private
