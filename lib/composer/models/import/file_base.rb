@@ -22,7 +22,9 @@ module Composer
 
         def full_path(ext=nil)
           ext ||= extension
-          Composer::Import::VirtualPath.new("#{root_path}#{File::SEPARATOR}#{dir_path}#{File::SEPARATOR}#{name}.#{ext}")
+          Composer::Import::VirtualPath.new(
+            [ root_path, dir_path, "#{name}.#{ext}" ].join(File::SEPARATOR)
+          )
         end
 
       end

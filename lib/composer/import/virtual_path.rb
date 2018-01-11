@@ -8,7 +8,10 @@ module Composer
       def to_s
         source_path
       end
-      alias_method :path, :to_s
+
+      def path
+        Lib::SafePath.new(source_path).path
+      end
 
       def exists?
         File.exists?(source_path)
