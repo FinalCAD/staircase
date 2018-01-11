@@ -2,10 +2,10 @@ module Composer
   module Processors
     class Base
 
-      attr_reader :exporter
+      attr_reader :export_path
 
-      def initialize(exporter)
-        @exporter = exporter
+      def initialize(context)
+        @export_path = context[:export_path]
       end
 
       def process(staircase_model)
@@ -28,7 +28,7 @@ module Composer
       end
 
       def layout_path(model)
-        Lib::SafePath.new([ exporter.export_path, "Sectors", "#{model.name}.png" ].join(File::SEPARATOR))
+        Lib::SafePath.new([ export_path, "Sectors", "#{model.name}.png" ].join(File::SEPARATOR))
       end
 
       private

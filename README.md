@@ -1,12 +1,36 @@
-# staircase
+# Staircase
 
 Service to create Staircase
+
+[![Code Climate](https://codeclimate.com/github/FinalCAD/staircase.png)](https://codeclimate.com/github/FinalCAD/staircase)
+
+[![Dependency Status](https://gemnasium.com/FinalCAD/staircase.svg)](https://gemnasium.com/FinalCAD/staircase)
+
+[![Build Status](https://travis-ci.org/FinalCAD/staircase.svg?branch=master)](https://travis-ci.org/FinalCAD/staircase) (Travis CI)
+
+[![Coverage Status](https://coveralls.io/repos/FinalCAD/staircase/badge.svg?branch=master&service=github)](https://coveralls.io/github/FinalCAD/staircase?branch=master)
+
+## Installation
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'staircase'
+```
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install staircase
 
 ## What's the purpose of this service
 
 For some internal purpose we need to perform some manipulations on generated archive of blueprints from plugin like AutoCAD Plugin or Revit Plugin
 
-Basically those plugins know how produced Sectors and Zones, but for some specific projects we need another type composed by several Sectors into one, here a Staircase
+Basically those plugins know how produced Sectors and Zones, but for some specific projects we need another type of blueprints composed by several Sectors into one, here a Staircase
 
 Input files look like that :
 
@@ -28,7 +52,7 @@ Zones\<Staircase Name>\<Sector Name> <Zone name>.json
 
 ### What's a Staircase?
 
-A Staircase can be see as a matrix, this matrix is the composition of sectors, it can have a variable of number of columns and rows
+A Staircase can be see as a matrix, this matrix is the composition of sectors, it can have a variable number of columns and rows
 
 ### Models architecture
 
@@ -46,9 +70,9 @@ Like that we have all we need gathered in one Staircase model.
 
 To load the models we need to give a input directory where the original files can be found
 
-`Composer::Import::Dir` is responsible to instancy for every file that match our requirement, it's really basic
+`Composer::Import::Dir` is responsible to create the instance for every files that match our requirement, it's really basic
 
-`Composer::Import::Instantiate` is responsible to instantiate the appropriate model, a `staircase`, `sector` or `zone` and put it where is belong.
+`Composer::Import::Instantiate` is responsible to instantiate the appropriate model, a `Staircase`, `Sector` or `Zone` and put it where is belong.
 
 the instantiated model is really simple, you can safely overriding it
 
@@ -74,14 +98,14 @@ end
 
 ### Playing with Models
 
-Once the model loaded you can access it memory
+Once the model is loaded you can access to it in memory
 
 ```
 registry = Composer::Stores::Registry.instance
 registry.inputs
 ```
 
-You can play easily with every files concerning a Staircase
+You can play easily with every files concerning a Staircase through their names
 
 ```
 registry.staircases['Staircase Name 1'].sectors['R+1'].zones['Logement 12-11-=-Architecte'].path(:pdf).to_s
@@ -90,7 +114,7 @@ registry.staircases['Staircase Name 1'].sectors['R+1'].zones['Logement 12-11-=-A
 
 ## Exporting
 
-Basically the export it a suite of manipulations
+Basically the export is a suite of manipulations
 
 You can invoke the exportation like :
 
@@ -100,33 +124,37 @@ Composer::Export.new.generate
 
 ### Exporting components
 
-Each component work with one Staircase
+Each component work for one Staircase
 
 #### PdfToPng component
 
 This component its responsible to take every PDF files of every Sectors and every Zones of the given Staircase and convert it to a PNG file
 
-#### PngReduce component
+#### CreateLayout component
 
-This component its responsible to take every PNG files of every Sectors of the given Staircase and resize to fit the expected grid
+This component its responsible to create the Staircase layout
 
 #### ComposeGrid component
 
-This component its responsible to compose the staircase image from the given sectors blueprints provided
+This component its responsible to compose the staircase image from the given sector blueprints
+
+#### Annotate component
+
+This component its responsible to add the name of the Sector as a subtitle below the according blueprint on the layout
 
 ## Internal library
 
 ### Grid
 
-`Composer::Lib::Grid` take a number of images, basically the number of sectors and get the matrix needed
+`Composer::Lib::Grid` take a number of images, basically the number of sectors and get the resulting matrix
 
 ### Dimension
 
-`Composer::Lib::Dimension` is a simple value object to carry one height and width
+`Composer::Lib::Dimension` is a simple value object to carry a height and width
 
 ### Size
 
-`Composer::Lib::Size` take as arguments, a Grid, the expected image dimension, and the marges
+`Composer::Lib::Size` take as arguments, a Grid, the layout dimension, form that it provide the image dimension needed of the blueprints
 
 ### Point
 
@@ -136,9 +164,9 @@ This component its responsible to compose the staircase image from the given sec
 
 `Composer::Lib::Cursor` take as arguments the matrix dimensions and can give the next position of the matrix cell through the `move` method
 
-### Position
+### SafePath
 
-`Composer::Lib::Position` take as arguments the image and marge dimensions and can give the position require for a specific cell of the matrix
+`Composer::Lib::SafePath` can generate a path with a given extension and escape properly the path for Imagemagick
 
 ## Links
 
