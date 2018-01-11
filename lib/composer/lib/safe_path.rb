@@ -9,7 +9,15 @@ module Composer
       end
 
       def path
-        @_path.to_s.gsub(/ /,'\ ')
+        self
+      end
+
+      def escaped
+        to_s.gsub(/ /,'\ ')
+      end
+
+      def to_s
+        @_path.to_s
       end
 
     end

@@ -20,6 +20,8 @@ module Composer
         Processors::CreateLayout.new(self).process(staircase_model)
         # Assemble PNG
         Composer::Processors::ComposeGrid.new(self).process(staircase_model)
+        # Annotate PNG
+        Composer::Processors::Annotate.new(self).process(staircase_model)
 
         break
       end

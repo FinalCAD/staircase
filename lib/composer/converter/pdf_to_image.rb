@@ -21,7 +21,8 @@ module Composer
               'convert',
               '-alpha opaque',
               '-flatten'
-          ] + options[:convert_options] + [ Lib::SafePath.new(input.path).path, file.path ]
+          ] + options[:convert_options] + [ Lib::SafePath.new(input.path).path.escaped, file.path ]
+          puts("#{self.name} => #{cmd.join(' ')}")
           run_command(cmd.join(' '))
           file
         end

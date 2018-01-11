@@ -15,6 +15,10 @@ module Composer
       def move
         @cursor.move
       end
+
+      def reset
+        @cursor = Cursor.new(columns: columns, rows: rows)
+      end
     end
   end
 end

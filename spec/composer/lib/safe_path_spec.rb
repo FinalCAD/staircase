@@ -2,11 +2,13 @@ require 'spec_helper'
 
 describe Composer::Lib::SafePath do
   [
-    { initial_path: nil,                          resul_path: ''                              },
-    { initial_path: '',                           resul_path: ''                              },
-    { initial_path: '/a/path/',                   resul_path: '/a/path/'                      },
-    { initial_path: '/a/path/need to be escaped', resul_path: '/a/path/need\ to\ be\ escaped' }
+    { initial_path: '',                           escaped_path: ''                              },
+    { initial_path: '/a/path/',                   escaped_path: '/a/path/'                      },
+    { initial_path: '/a/path/need to be escaped', escaped_path: '/a/path/need\ to\ be\ escaped' }
   ].each do |info|
-    it { expect(described_class.new(info[:initial_path]).path).to eql(info[:resul_path]) }
+    it do
+      expect(described_class.new(info[:initial_path]).path.to_s).to eql(info[:initial_path])
+      expect(described_class.new(info[:initial_path]).path.escaped).to eql(info[:escaped_path])
+    end
   end
 end
