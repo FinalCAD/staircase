@@ -7,13 +7,14 @@ module Composer
         marge            = Lib::Dimension.new(height: 8.0, width: 40.0)
         grid             = Lib::Grid.new(number_of_images)
         size             = Lib::Size.new(grid: grid, layout_dimension: layout_dimension, marge: 40.0).call
-        position         = Lib::Position.new(dimension: size.image_dimension, marge: marge, footer: 32.0)
+        sector_position  = Lib::SectorPosition.new(dimension: size.image_dimension, marge: marge, footer: 32.0)
+        text_position    = Lib::TextPosition.new(image_dimension: size.image_dimension, layout_dimension: layout_dimension)
 
         staircase_model.sectors.each do |_, sector_model|
           cmd = []
 
           cell = grid.move
-          geometry = position.coordinate(column: cell.column.to_i, row: cell.row.to_i)
+          geometry = sector_position.coordinate(column: cell.column.to_i, row: cell.row.to_i)
 
           file_to_compose_path = Lib::SafePath.new((sector_model.full_path(:png).path)).path
 
@@ -23,6 +24,21 @@ module Composer
           cmd << staircase_path(staircase_model).path
 
           run_command(cmd.join(' '))
+
+          a = [
+            'convert',
+            staircase_path(staircase_model).path,
+            '-fill "#071D49"',
+            "-pointsize #{text_position.pointsize}",
+            '-gravity Center',
+            "-annotate #{text_position.coordinate(geometry)}",
+            "\"#{sector_model.name}\"",
+            staircase_path(staircase_model).path
+          ]
+
+          puts("=> #{a.join(' ')}")
+
+          run_command(a.join(' '))
         end
 
         nil

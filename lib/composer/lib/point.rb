@@ -7,12 +7,12 @@ module Composer
       end
 
       def y
-        @y.to_f
+        @y.to_f.round(1)
       end
       alias_method :row, :y
 
       def x
-        @x.to_f
+        @x.to_f.round(1)
       end
       alias_method :column, :x
 
