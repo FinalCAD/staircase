@@ -1,37 +1,48 @@
 module Composer
   module Processors
-    class ComposeGrid
-
-      def initialize(context={})
-        @export_path = context.fetch(:export_path)
-      end
+    class ComposeGrid < Base
 
       def process(staircase_model)
+        number_of_images = staircase_model.number_of_images
+        marge            = Lib::Dimension.new(height: 8.0, width: 40.0)
+        grid             = Lib::Grid.new(number_of_images)
+        size             = Lib::Size.new(grid: grid, layout_dimension: layout_dimension, marge: 40.0).call
+        position         = Lib::Position.new(dimension: size.image_dimension, marge: marge, footer: 32.0)
+
         staircase_model.sectors.each do |_, sector_model|
-          copy(convert(sector_model.source_path(:pdf)), sector_model.source_path(:png))
-          sector_model.zones.each do |_, zone_model|
-            copy(convert(zone_model.source_path(:pdf)), zone_model.source_path(:png))
-          end
+          cmd = []
+
+          cell = grid.move
+          geometry = position.coordinate(column: cell.column.to_i, row: cell.row.to_i)
+
+          file_to_compose_path = Lib::SafePath.new((sector_model.full_path(:png).path)).path
+
+          cmd << "composite -geometry #{size}#{geometry} #{file_to_compose_path}"
+
+          cmd << staircase_path(staircase_model).path
+          cmd << staircase_path(staircase_model).path
+
+          puts(cmd.join(' '))
+
+          run_command(cmd.join(' '))
         end
+
+        nil
       end
 
       private
 
-      def convert(pdf_file)
-        return unless pdf_file.exists?
-        Converter::PdfToImage.new(pdf_file, convert_options: image_convert_options).process
+      def layout_dimension
+        @layout_dimension ||= Lib::Dimension.new(width: 2109.0, height: 1818.0)
       end
 
-      def image_convert_options
-        IMAGE_CONVERT_OPTIONS
+      def staircase_path(model)
+        Lib::SafePath.new([ exporter.export_path, "Sectors", "#{model.name}.png" ].join(File::SEPARATOR))
       end
 
-      IMAGE_CONVERT_OPTIONS = [
-        '-size 2109.0x1818.0',
-        'xc:#F4F5F6'
-      ].freeze
-      private_constant :IMAGE_CONVERT_OPTIONS
-
+      def run_command(cmd)
+        system(cmd)
+      end
     end
   end
 end

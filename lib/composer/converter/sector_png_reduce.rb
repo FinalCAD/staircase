@@ -17,7 +17,7 @@ module Composer
           file = Tempfile.new(%W[input .#{options[:extension]}])
           cmd = [
             'convert'
-          ] + options[:convert_options] + [ Shellwords.shellescape(input.path), file.path ]
+          ] + options[:convert_options] + [ Lib::SafePath.new(input.path).path, file.path ]
           run_command(cmd.join(' '))
           file
         end

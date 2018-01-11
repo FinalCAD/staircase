@@ -8,13 +8,13 @@ describe Composer::Models::Import::Sector do
   subject { described_class.new(model) }
 
   it do
-    expect(subject.name).to             eql('A Sector')
-    expect(subject.extension).to        eql('png')
-    expect(subject.full_name).to        eql('A Sector.png')
+    expect(subject.name).to                  eql('A Sector')
+    expect(subject.extension).to             eql('png')
+    expect(subject.full_name).to             eql('A Sector.png')
 
-    expect(subject.root_path).to        eql('a/path/whatever/where')
-    expect(subject.source_path).to      eql('a/path/whatever/where/Staircases/A Staircase/Sectors/A Sector.png')
-    expect(subject.dir_path).to         eql('Staircases/A Staircase/Sectors')
+    expect(subject.root_path).to             eql('a/path/whatever/where')
+    expect(subject.source_path).to           eql('a/path/whatever/where/Staircases/A Staircase/Sectors/A Sector.png')
+    expect(subject.dir_path).to              eql('Staircases/A Staircase/Sectors')
     expect(subject.full_path.to_s).to        eql('a/path/whatever/where/Staircases/A Staircase/Sectors/A Sector.png')
     expect(subject.full_path(:pdf).to_s).to  eql('a/path/whatever/where/Staircases/A Staircase/Sectors/A Sector.pdf')
 

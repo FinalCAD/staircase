@@ -1,5 +1,3 @@
-require 'shellwords'
-
 module Composer
   module Converter
     class Base
@@ -12,6 +10,8 @@ module Composer
       def process
         raise "implement this method"
       end
+
+
     end
   end
 end

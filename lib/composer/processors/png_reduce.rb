@@ -16,7 +16,7 @@ module Composer
 
       def set_resize(number_of_images)
         grid = Lib::Grid.new(number_of_images)
-        size = Lib::Size.new(grid: grid, dimension: Lib::Dimension.new(height: 2109.0, width: 1818.0)).call
+        size = Lib::Size.new(grid: grid, layout_dimension: Lib::Dimension.new(height: 2109.0, width: 1818.0)).call
         set_convert_options(size)
       end
 
