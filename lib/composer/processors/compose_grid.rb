@@ -22,8 +22,6 @@ module Composer
           cmd << staircase_path(staircase_model).path
           cmd << staircase_path(staircase_model).path
 
-          puts(cmd.join(' '))
-
           run_command(cmd.join(' '))
         end
 

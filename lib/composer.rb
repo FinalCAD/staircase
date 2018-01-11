@@ -10,11 +10,9 @@ require_relative 'composer/lib/safe_path'
 
 require_relative 'composer/converter/base'
 require_relative 'composer/converter/pdf_to_image'
-require_relative 'composer/converter/sector_png_reduce'
 
 require_relative 'composer/processors/base'
 require_relative 'composer/processors/pdf_to_png'
-require_relative 'composer/processors/png_reduce'
 require_relative 'composer/processors/create_layout'
 require_relative 'composer/processors/compose_grid'
 

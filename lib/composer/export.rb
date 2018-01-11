@@ -17,9 +17,11 @@ module Composer
         # Convert PDF to PNG
         Processors::PdfToPng.new(self).process(staircase_model)
         # Reduce PNG Size
-        Processors::PngReduce.new(self).process(staircase_model)
-        # Reduce PNG Size
         Processors::CreateLayout.new(self).process(staircase_model)
+        # Assemble PNG
+        Composer::Processors::ComposeGrid.new(self).process(staircase_model)
+
+        break
       end
     end
 
