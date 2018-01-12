@@ -2,7 +2,7 @@
 
 Service to create Staircase
 
-[![Code Climate](https://codeclimate.com/github/FinalCAD/staircase.png)](https://codeclimate.com/github/FinalCAD/staircase)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b555e20a16d6c8776959/maintainability)](https://codeclimate.com/github/FinalCAD/staircase/maintainability)
 
 [![Dependency Status](https://gemnasium.com/FinalCAD/staircase.svg)](https://gemnasium.com/FinalCAD/staircase)
 
