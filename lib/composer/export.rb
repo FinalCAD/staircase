@@ -9,7 +9,7 @@ module Composer
       @registry    = registry.instance
       @context     = context.reverse_merge(export_path: 'spec/fixtures/archive/output')
 
-      FileUtils::mkdir_p(export_path)
+      FileUtils::mkdir_p(@context[:export_path])
     end
 
     def generate
@@ -20,9 +20,11 @@ module Composer
         # Reduce PNG Size
         Processors::CreateLayout.new(context).process(staircase_model)
         # Assemble PNG
-        Composer::Processors::ComposeGrid.new(context).process(staircase_model)
+        Processors::ComposeGrid.new(context).process(staircase_model)
         # Annotate PNG
-        Composer::Processors::Annotate.new(context).process(staircase_model)
+        Processors::Annotate.new(context).process(staircase_model)
+        # Move Zone into the target place
+        Processors::MoveZone.new(context).process(staircase_model)
 
         break
       end

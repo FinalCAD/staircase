@@ -19,6 +19,7 @@ require_relative 'composer/processors/pdf_to_png'
 require_relative 'composer/processors/create_layout'
 require_relative 'composer/processors/compose_grid'
 require_relative 'composer/processors/annotate'
+require_relative 'composer/processors/move_zone'
 
 require_relative 'composer/export'
 require_relative 'composer/import'
