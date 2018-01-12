@@ -25,6 +25,8 @@ module Composer
         Processors::Annotate.new(context).process(staircase_model)
         # Move Zone into the target place
         Processors::MoveZone.new(context).process(staircase_model)
+        # Set metadata for a Staircase based on his sectors
+        Processors::Metadata::Sector.new(context).process(staircase_model)
 
         break
       end
