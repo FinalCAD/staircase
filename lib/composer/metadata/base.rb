@@ -1,3 +1,6 @@
+# Public:
+# Recalculate the value accordling to the new dimensions
+#
 module Composer
   module Metadata
     module Base
@@ -19,16 +22,26 @@ module Composer
 
       # Public: Duplicate some text an arbitrary number of times.
       #
-      # text  - The String to be duplicated.
-      # count - The Integer number of times to duplicate the text.
+      # position  - Point - The current position on the matrix
+      # keys      - Array - The pair of keys to look into the metadata
+      #
+      #
+      # This method modifies the metadata.
       #
       # Examples
       #
-      #   multiplex('Tom', 4)
-      #   # => 'TomTomTomTom'
+      #   update!(position: #<Composer::Lip::Point:0x007fce0e30ba90 @x=8.0, @y=40.0>, keys: [ :Polyline, :Coordinates ])
+      #   # => nil
       #
-      # def update!(position:, keys:)
-      # end
+      def update!(position:, keys:)
+        initial_value = metadata.dig(*keys)
+        return unless initial_value
+
+        new_value = _update!(initial_value, position, keys)
+
+        update_metadata(keys: keys, value: new_value)
+        nil
+      end
 
       private
 
