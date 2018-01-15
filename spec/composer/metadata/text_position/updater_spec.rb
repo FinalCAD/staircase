@@ -68,8 +68,7 @@ describe Composer::Metadata::TextPosition::Updater do
           keys:             keys
         )
       }.to change {
-        # sector_metadata['Zones'].detect { |zone| zone['ZoneName'] == 'A Zone Name' }['TextPosition']['Latitude']
-        zone_metadata.dig(*keys)
+        subject.metadata.dig(*keys)
       }.from(
         initial_value
       ).to(
