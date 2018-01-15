@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Composer::Metadata::TextPosition::Updater do
+describe Composer::Metadata::TextPosition do
   let(:number_of_images) { 4 }
   let(:marge)            { Composer::Lib::Dimension.new(height: 8.0, width: 40.0) }
   let(:grid)             { Composer::Lib::Grid.new(number_of_images) }

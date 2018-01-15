@@ -20,7 +20,7 @@ module Composer
 
             sector_model.zones.each do |_, zone_model|
               zone_metadata = zone_metadata(sector_metadata, zone_model.short_name)
-              updater = Composer::Metadata::TextPosition::Updater.new(
+              updater = Composer::Metadata::TextPosition.new(
                 metadata:         zone_metadata,
                 layout_dimension: layout_dimension,
                 image_dimension:  size.image_dimension)
@@ -29,7 +29,7 @@ module Composer
                 updater.update!(position: position, keys: keys)
               end
 
-              updater = Composer::Metadata::Polyline::Updater.new(
+              updater = Composer::Metadata::Polyline.new(
                 metadata:         zone_metadata,
                 layout_dimension: layout_dimension,
                 image_dimension:  size.image_dimension)
