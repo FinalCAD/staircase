@@ -27,6 +27,8 @@ module Composer
         Processors::MoveZone.new(context).process(staircase_model)
         # Set metadata for a Staircase based on his sectors
         Processors::Metadata::Sector.new(context).process(staircase_model)
+        # Set the new metadata for a Zone based on the created Staircase
+        Processors::Metadata::Zone.new(context).process(staircase_model)
 
         break
       end

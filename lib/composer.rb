@@ -21,6 +21,7 @@ require_relative 'composer/processors/compose_grid'
 require_relative 'composer/processors/annotate'
 require_relative 'composer/processors/move_zone'
 require_relative 'composer/processors/metadata/sector'
+require_relative 'composer/processors/metadata/zone'
 
 require_relative 'composer/metadata/text_position/updater'
 
