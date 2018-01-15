@@ -12,6 +12,10 @@ module Composer
           File.basename(model.exploded_path.last, ".#{extension}")
         end
 
+        def short_name
+          File.basename(_name, ".#{extension}")
+        end
+
         def full_name
           model.exploded_path.last
         end
@@ -25,6 +29,12 @@ module Composer
           Composer::Lib::VirtualPath.new(
             [ root_path, dir_path, "#{name}.#{ext}" ].join(File::SEPARATOR)
           )
+        end
+
+        private
+
+        def _name
+          model.exploded_path.last
         end
 
       end

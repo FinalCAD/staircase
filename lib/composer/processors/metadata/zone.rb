@@ -9,6 +9,8 @@ module Composer
               metadata = JSON.load(File.new(zone_model.full_path(:json).path.to_s).read)
 
               metadata['SubView']['SectorName'] = staircase_model.name
+              metadata['SubView']['ZoneName']   = "#{sector_model.name} #{zone_model.short_name}"
+              metadata['SubView']['ShortName']  = "#{sector_model.name} #{zone_model.short_name}"
 
               file = Tempfile.new(%W[zone_metadata .json])
               file.write(metadata.to_json)

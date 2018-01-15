@@ -19,7 +19,7 @@ module Composer
             position = sector_position.coordinate(column: cell.column.to_i, row: cell.row.to_i)
 
             sector_model.zones.each do |_, zone_model|
-              zone_metadata = zone_metadata(sector_metadata, zone_name(zone_model.name))
+              zone_metadata = zone_metadata(sector_metadata, zone_model.short_name)
               updater = Composer::Metadata::TextPosition::Updater.new(zone_metadata)
 
               text_position_keys.each do |keys|
@@ -29,6 +29,9 @@ module Composer
                     image_dimension: size.image_dimension,
                     keys: keys)
               end
+
+              updater.metadata['ZoneName']  = "#{sector_model.name} #{zone_model.short_name}"
+              updater.metadata['ShortName'] = "#{sector_model.name} #{zone_model.short_name}"
 
               metadata[:Sector][:Zones] << updater.metadata
             end
@@ -83,16 +86,6 @@ module Composer
 
         def zone_metadata(sector_metadata, zone_name)
           sector_metadata['Sector']['Zones'].detect { |zone| zone['ZoneName'] == zone_name }
-        end
-
-        def zone_name(model_name)
-          if model_name =~ /-=-/
-            model_name.split('-=-').first
-          elsif model_name =~ /-==-/
-            model_name.split('-=+-').first
-          else
-            model_name
-          end
         end
 
       end
