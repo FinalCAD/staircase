@@ -2,7 +2,6 @@ require 'active_support/all'
 
 require_relative 'composer/lib/grid'
 require_relative 'composer/lib/size'
-require_relative 'composer/lib/position'
 require_relative 'composer/lib/sector_position'
 require_relative 'composer/lib/text_position'
 require_relative 'composer/lib/dimension'
