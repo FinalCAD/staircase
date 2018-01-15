@@ -21,7 +21,7 @@ module Composer
           @zone_name = name.filename
 
           zone = Composer::Models::Zone.new(model)
-          sector = registry.inputs[staircase_name].sectors[sector_name]
+          sector = registry.models[staircase_name].sectors[sector_name]
           sector.append_zone(zone)
           return true
         end
@@ -30,14 +30,14 @@ module Composer
         if type.sector?
           @sector_name = name.filename
           sector = Composer::Models::Sector.new(model)
-          registry.inputs[staircase_name].append_sector(sector)
+          registry.models[staircase_name].append_sector(sector)
           return true
         end
 
         if type.staircase? # A/Path/Staircases/<Staircase Name>
           @staircase_name = name.filename
           staircase = Composer::Models::Staircase.new(model)
-          registry.append_input(staircase)
+          registry.append_model(staircase)
           return true
         end
       end

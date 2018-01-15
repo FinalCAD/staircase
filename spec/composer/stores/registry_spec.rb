@@ -8,17 +8,16 @@ describe Composer::Stores::Registry do
   before { subject.reset! }
 
   it do
-    expect(subject.inputs).to  eql({})
-    expect(subject.outputs).to eql({})
+    expect(subject.models).to  eql({})
   end
 
   context do
     before { expect(model).to receive(:name).and_return(nil) }
     it do
       expect {
-        subject.append_input(model)
+        subject.append_model(model)
       }.to_not change {
-        subject.inputs
+        subject.models
       }
     end
   end
@@ -27,9 +26,9 @@ describe Composer::Stores::Registry do
     before { expect(model).to receive(:name).at_least(:once).and_return('A Name') }
     it do
       expect {
-        subject.append_input(model)
+        subject.append_model(model)
       }.to change {
-        subject.inputs.keys
+        subject.models.keys
       }.from([]).to(['A Name'])
     end
   end

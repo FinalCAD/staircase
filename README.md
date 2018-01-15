@@ -102,7 +102,7 @@ Once the model is loaded, you can access it in memory
 
 ```
 registry = Composer::Stores::Registry.instance
-registry.inputs
+registry.models
 ```
 
 You can play easily with every file concerning a Staircase through their names

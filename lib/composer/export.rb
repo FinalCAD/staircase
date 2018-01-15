@@ -14,7 +14,7 @@ module Composer
 
     def generate
 
-      registry.inputs.each do |_, staircase_model|
+      registry.models.each do |_, staircase_model|
         # Convert PDF to PNG
         Processors::PdfToPng.new(context).process(staircase_model)
         # Reduce PNG Size

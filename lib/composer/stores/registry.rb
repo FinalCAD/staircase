@@ -5,27 +5,20 @@ module Composer
     class Registry
       include Singleton
 
-      attr_reader :inputs, :outputs
+      attr_reader :models
 
       def initialize
         reset!
       end
 
-      def append_input(model)
+      def append_model(model)
         return unless model.name
 
-        inputs[model.name] ||= model
-      end
-
-      def append_output(model)
-        return unless model.name
-
-        outputs[model.name] ||= model
+        models[model.name] ||= model
       end
 
       def reset!
-        @inputs  = {}
-        @outputs = {}
+        @models = {}
       end
 
     end
