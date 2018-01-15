@@ -16,12 +16,14 @@ describe Composer::Import::Instantiate do
     end
 
     it do
+      # Add Staircase
       expect {
         expect(subject.call(model)).to eql(true)
       }.to change {
         registry.inputs.keys
       }.from([]).to(['Staircase Name 1'])
 
+      # Add Sector
       path = "spec/fixtures/archive/input/Staircases/Staircase Name 1/Sectors/R+1.json"
       model = Composer::Model.new(path)
       staircase = registry.inputs['Staircase Name 1']
@@ -32,6 +34,17 @@ describe Composer::Import::Instantiate do
         staircase.sectors.keys
       }.from([]).to(['R+1'])
 
+      path = "spec/fixtures/archive/input/Staircases/Staircase Name 1/Sectors/RDC.json"
+      model = Composer::Model.new(path)
+      staircase = registry.inputs['Staircase Name 1']
+
+      expect {
+        expect(subject.call(model)).to eql(true)
+      }.to change {
+        staircase.sectors.keys
+      }.from(['R+1']).to(['R+1','RDC'])
+
+      # Add Zones
       path = "spec/fixtures/archive/input/Staircases/Staircase Name 1/Zones/R+1/Logement 12-11-=-Architecte.png"
       model = Composer::Model.new(path)
       sector = registry.inputs['Staircase Name 1'].sectors['R+1']

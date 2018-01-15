@@ -16,7 +16,10 @@ module Composer
 
          # A/Path/Staircases/<Staircase Name>/Zones/<Sector Name>/<Zone Name>.<extension>
         if type.zone?
+          name = ZoneModelName.new(model)
+          sector_name = name.sector_name
           @zone_name = name.filename
+
           zone = Composer::Models::Import::Zone.new(model)
           sector = registry.inputs[staircase_name].sectors[sector_name]
           sector.append_zone(zone)
@@ -52,6 +55,14 @@ module Composer
         private
 
         attr_reader :model
+      end
+
+      class ZoneModelName < ModelName
+
+        def sector_name
+          model.exploded_path[0..-2].last
+        end
+
       end
 
       class ModelType
