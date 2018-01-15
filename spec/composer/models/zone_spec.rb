@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Composer::Models::Import::Zone do
+describe Composer::Models::Zone do
   let(:path)    { 'a/path/whatever/where/Staircases/A Staircase/Zones/A Sector/A Zone-=-Architecte.png' }
   let(:context) {{ }}
   let(:model)   { Composer::Model.new(path, context) }

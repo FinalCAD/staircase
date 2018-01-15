@@ -33,11 +33,11 @@ require_relative 'composer/model'
 
 require_relative 'composer/stores/registry'
 
-require_relative 'composer/models/import/base'
-require_relative 'composer/models/import/file_base'
-require_relative 'composer/models/import/staircase'
-require_relative 'composer/models/import/sector'
-require_relative 'composer/models/import/zone'
+require_relative 'composer/models/base'
+require_relative 'composer/models/file_base'
+require_relative 'composer/models/staircase'
+require_relative 'composer/models/sector'
+require_relative 'composer/models/zone'
 
 require_relative 'composer/import/dir'
 require_relative 'composer/import/path'

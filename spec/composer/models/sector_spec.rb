@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Composer::Models::Import::Sector do
+describe Composer::Models::Sector do
   let(:path)    { 'a/path/whatever/where/Staircases/A Staircase/Sectors/A Sector.png' }
   let(:context) {{ }}
   let(:model)   { Composer::Model.new(path, context) }
@@ -24,7 +24,7 @@ describe Composer::Models::Import::Sector do
   describe '#append_zone' do
     let(:zone_path)    { 'a/path/whatever/where/Staircases/A Staircase/Zones/A Sector/A Zone.png' }
     let(:zone_context) {{ }}
-    let(:zone)         { Composer::Models::Import::Zone.new(Composer::Model.new(zone_path, zone_context)) }
+    let(:zone)         { Composer::Models::Zone.new(Composer::Model.new(zone_path, zone_context)) }
 
     it do
       expect {

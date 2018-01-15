@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Composer::Models::Import::Staircase do
+describe Composer::Models::Staircase do
   let(:path)    { 'a/path/whatever/where/Staircases/A Staircase' }
   let(:context) {{ }}
   let(:model)   { Composer::Model.new(path, context) }
@@ -22,7 +22,7 @@ describe Composer::Models::Import::Staircase do
   describe '#append_sector' do
     let(:sector_path)    { 'a/path/whatever/where/Staircases/A Staircase/Sectors/A Sector.png' }
     let(:sector_context) {{ }}
-    let(:sector)         { Composer::Models::Import::Sector.new(Composer::Model.new(sector_path, sector_context)) }
+    let(:sector)         { Composer::Models::Sector.new(Composer::Model.new(sector_path, sector_context)) }
 
     it do
       expect {
