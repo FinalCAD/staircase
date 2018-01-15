@@ -20,14 +20,22 @@ module Composer
 
             sector_model.zones.each do |_, zone_model|
               zone_metadata = zone_metadata(sector_metadata, zone_model.short_name)
-              updater = Composer::Metadata::TextPosition::Updater.new(zone_metadata)
+              updater = Composer::Metadata::TextPosition::Updater.new(
+                metadata:         zone_metadata,
+                layout_dimension: layout_dimension,
+                image_dimension:  size.image_dimension)
 
               text_position_keys.each do |keys|
-                updater.update!(
-                    grid_position: position,
-                    layout_dimension: layout_dimension,
-                    image_dimension: size.image_dimension,
-                    keys: keys)
+                updater.update!(position: position, keys: keys)
+              end
+
+              updater = Composer::Metadata::Polyline::Updater.new(
+                metadata:         zone_metadata,
+                layout_dimension: layout_dimension,
+                image_dimension:  size.image_dimension)
+
+              polyline_keys.each do |keys|
+                updater.update!(position: position, keys: keys)
               end
 
               updater.metadata['ZoneName']  = "#{sector_model.name} #{zone_model.short_name}"
@@ -62,6 +70,10 @@ module Composer
             [ :TextPositionULC, :Latitude  ],
             [ :TextPositionULC, :Longitude ],
           ]
+        end
+
+        def polyline_keys
+          [[ :Polyline, :coordinates ]]
         end
 
         # Sectors\<Staircase Name>.json

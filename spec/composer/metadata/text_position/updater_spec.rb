@@ -42,7 +42,7 @@ describe Composer::Metadata::TextPosition::Updater do
     }
   end
 
-  subject { described_class.new(zone_metadata) }
+  subject { described_class.new(metadata: zone_metadata, layout_dimension: layout_dimension, image_dimension: size.image_dimension) }
 
   # let(:sector_position)  { Composer::Lib::SectorPosition.new(dimension: size.image_dimension, marge: marge, footer: 32.0) }
 
@@ -62,10 +62,8 @@ describe Composer::Metadata::TextPosition::Updater do
 
       expect {
         subject.update!(
-          grid_position:    first_position,
-          layout_dimension: layout_dimension,
-          image_dimension:  size.image_dimension,
-          keys:             keys
+          position: first_position,
+          keys:     keys
         )
       }.to change {
         subject.metadata.dig(*keys)

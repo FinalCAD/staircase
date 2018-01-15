@@ -23,7 +23,9 @@ require_relative 'composer/processors/move_zone'
 require_relative 'composer/processors/metadata/sector'
 require_relative 'composer/processors/metadata/zone'
 
+require_relative 'composer/metadata/base'
 require_relative 'composer/metadata/text_position/updater'
+require_relative 'composer/metadata/polyline/updater'
 
 require_relative 'composer/export'
 require_relative 'composer/import'
