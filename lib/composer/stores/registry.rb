@@ -13,7 +13,6 @@ module Composer
 
       def append_model(model)
         return unless model.name
-
         models[model.name] ||= model
       end
 

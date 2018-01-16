@@ -13,7 +13,6 @@ module Composer
     end
 
     def generate
-
       registry.models.each do |_, staircase_model|
         # Convert PDF to PNG
         Processors::PdfToPng.new(context).process(staircase_model)
@@ -37,6 +36,5 @@ module Composer
     private
 
     attr_reader :registry
-
   end
 end

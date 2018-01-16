@@ -5,7 +5,7 @@ module Composer
     attr_reader :context, :source_path, :index
 
     def initialize(path, options={})
-      @source_path, @context = path, OpenStruct.new(options[:context])
+      @source_path, @context = path, options.reverse_merge(export_path: 'spec/fixtures/archive/output')
       @index, @previous      = options[:index], options[:previous].try(:dup)
     end
 

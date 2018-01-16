@@ -60,8 +60,12 @@ To simplify the manipulation of those different files, the library load in memor
 
 ```
 -- Staircase
- |-- Sectors
-   |-- Zones
+  |-- < Staircase Name >
+    |-- Sectors
+      |-- < Sector Name >.extension
+    |-- Zones
+      |-- < Sector Name >
+        |-- < Zone Name >.extension
 ```
 
 Like that we have all we need to be gathered in one Staircase model.
@@ -70,11 +74,11 @@ Like that we have all we need to be gathered in one Staircase model.
 
 To load the models, we need to give an input directory where the original files can be found
 
-`Composer::Import::Dir` is responsible for creating the instance for every file that matches our requirement, it's really basic
+`Composer::Import::Dir` browse a directory and for every file instance a model.
 
-`Composer::Import::Instantiate` is responsible for instantiating the appropriate model, a `Staircase`, `Sector` or `Zone` and put it where is belong.
+The instantiated model is quite basic, it safe to override it. Basically, it contains the path of the file and on `skip?` method.
 
-the instantiated model is straightforward; you can safely overriding it
+You can override this way to ignore all path that doesn't contain the keyword `Staircases` for instance.
 
 ```
 class MyModel < Composer::Model
@@ -83,6 +87,15 @@ class MyModel < Composer::Model
   end
 end
 ```
+We have a couple of models to represent the directory structure :
+
+* Staircase
+* Sector
+* Zone
+
+Once you have a BasicModel instance, you can give it to the `Instantiate` to let it instantiate the right model and put our instance in the right place.
+
+`Composer::Import::Instantiate` is responsible for instantiating the appropriate model, a `Staircase`, `Sector` or `Zone` and put it where is belong.
 
 ```
 source_path = 'spec/fixtures/archive/input'
@@ -94,6 +107,23 @@ loop do
   next if model.skip?
   instantiate.call(model)
 end
+```
+or
+
+```
+source_path = 'spec/fixtures/archive/input'
+directory   = Composer::Import::Dir.new(source_path, model=MyModel, context={})
+
+directory.each do |model|
+  instantiate.call(model)
+end
+```
+
+A shortcut to load models in memory
+
+```
+importer = Composer::Importer.new(source_path: 'spec/fixtures/archive/input')
+importer.load
 ```
 
 ### Playing with Models
@@ -114,7 +144,9 @@ registry.models['Staircase Name 1'].sectors['R+1'].zones['Logement 12-11-=-Archi
 
 ## Exporting
 
-Basically, the export is a suite of manipulations
+Basically, the export is a suite of processes, like imagemagick manipulations, decypher, conversion, executed by a series of components.
+
+Those components can be chained.
 
 You can invoke the exportation like :
 
@@ -122,17 +154,17 @@ You can invoke the exportation like :
 Composer::Export.new(context: { export_path: 'spec/fixtures/archive/output' }).generate
 ```
 
-### Exporting components
+### Components
 
-Each component work for one Staircase
+Each component work for one Staircase with his dependencies (Sectors and Zones)
 
 #### PdfToPng component
 
-This component is responsible for taking every PDF files of every Sectors and every Zones of the given Staircase and converting it to a PNG file
+This component is responsible for converting every PDF files into a PNG file
 
 #### CreateLayout component
 
-This component is responsible for creating the Staircase layout
+This component is responsible for creating the Staircase layout, where the Staircases components will lie
 
 #### ComposeGrid component
 
@@ -144,29 +176,7 @@ This component is responsible for adding the name of the Sector as a subtitle be
 
 ## Internal library
 
-### Grid
-
-`Composer::Lib::Grid` take some images, basically the number of sectors and get the resulting matrix
-
-### Dimension
-
-`Composer::Lib::Dimension` is a simple value object to carry height and width
-
-### Size
-
-`Composer::Lib::Size` take as arguments, a Grid, the layout dimension, form that it provides the image dimension needed of the blueprints
-
-### Point
-
-`Composer::Lib::Point` is a simple value object to carry one x and y
-
-### Cursor
-
-`Composer::Lib::Cursor` take as arguments the matrix dimensions and can give the next position of the matrix cell through the `move` method
-
-### SafePath
-
-`Composer::Lib::SafePath` can generate a path with a given extension and escape the path properly for ImageMagick
+There is a bunch of internal libraries to help all the computation. See the internal documentation for everyone.
 
 ## Links
 
