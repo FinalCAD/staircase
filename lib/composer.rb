@@ -41,3 +41,5 @@ require_relative 'composer/models/zone'
 require_relative 'composer/import/dir'
 require_relative 'composer/import/path'
 require_relative 'composer/import/instantiate'
+
+require_relative 'composer/importer'

@@ -108,7 +108,7 @@ registry.models
 You can play easily with every file concerning a Staircase through their names
 
 ```
-registry.staircases['Staircase Name 1'].sectors['R+1'].zones['Logement 12-11-=-Architecte'].path(:pdf).to_s
+registry.models['Staircase Name 1'].sectors['R+1'].zones['Logement 12-11-=-Architecte'].path(:pdf).to_s
 => "spec/fixtures/archive/input/Staircases/Staircase Name 1/Zones/R+1/Logement 12-11-=-Architecte.pdf"
 ```
 
@@ -119,7 +119,7 @@ Basically, the export is a suite of manipulations
 You can invoke the exportation like :
 
 ```
-Composer::Export.new.generate
+Composer::Export.new(context: { export_path: 'spec/fixtures/archive/output' }).generate
 ```
 
 ### Exporting components
