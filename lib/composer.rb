@@ -43,3 +43,24 @@ require_relative 'composer/import/path'
 require_relative 'composer/import/instantiate'
 
 require_relative 'composer/importer'
+
+require_relative 'composer/configuration'
+require_relative 'composer/version'
+
+module Composer
+  class << self
+    attr_writer :configuration
+  end
+
+  def self.configuration
+    @configuration ||= Configuration.new
+  end
+
+  def self.reset
+    @configuration = Configuration.new
+  end
+
+  def self.configure
+    yield(configuration)
+  end
+end

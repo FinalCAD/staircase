@@ -14,7 +14,7 @@ module Composer
 
       attr_reader :image_dimension
 
-      def initialize(grid:, marge: 40.0, layout_dimension:)
+      def initialize(grid:, marge: 0.0, layout_dimension:)
         @grid             = grid
         @layout_dimension = layout_dimension
         @marge            = marge

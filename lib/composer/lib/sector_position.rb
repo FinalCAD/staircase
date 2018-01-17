@@ -6,7 +6,7 @@ module Composer
   module Lib
     class SectorPosition
 
-      def initialize(marge: Dimension.new(height: 40.0, width: 40.0), dimension:, footer: 0.0)
+      def initialize(marge: Dimension.new(height: 0.0, width: 0.0), dimension:, footer: 0.0)
         @marge     = marge
         @dimension = dimension
         @footer    = footer

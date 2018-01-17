@@ -9,11 +9,11 @@ module Composer
           cmd = []
 
           cell = grid.move
-          geometry = sector_position.coordinate(column: cell.column.to_i, row: cell.row.to_i)
+          position = sector_position.coordinate(column: cell.column.to_i, row: cell.row.to_i)
 
           file_to_compose_path = sector_model.full_path(:png).path.escaped
 
-          cmd << "composite -geometry #{size}#{geometry} #{file_to_compose_path}"
+          cmd << "composite -geometry #{size}#{position} #{file_to_compose_path}"
 
           cmd << layout_path(staircase_model).path.escaped
           cmd << layout_path(staircase_model).path.escaped

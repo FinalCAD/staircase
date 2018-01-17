@@ -12,14 +12,8 @@ module Composer
               metadata['SubView']['ZoneName']   = "#{sector_model.name} #{zone_model.short_name}"
               metadata['SubView']['ShortName']  = "#{sector_model.name} #{zone_model.short_name}"
 
-              file = Tempfile.new(%W[zone_metadata .json])
-              file.write(metadata.to_json)
-              file.rewind
-
+              file = write(%W[zone_metadata .json], metadata.to_json)
               copy(file, zone_path(staircase_model, sector_model, zone_model))
-
-              file.close
-              file.unlink # deletes the temp file
             end
           end
 

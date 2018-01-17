@@ -174,6 +174,20 @@ This component is responsible for composing the staircase image from the given s
 
 This component is responsible for adding the name of the Sector as a subtitle below of the corresponding blueprint on the layout
 
+## Configuration
+
+You can change the layout configuration
+
+```
+Composer.configure do |config|
+  config.layout = {
+    dimension: { width: 2109.0, height: 1818.0 },
+    marge:     { width: 40.0,   height: 8.0    },
+    footer: 32.0
+  }
+end
+```
+
 ## Internal library
 
 There is a bunch of internal libraries to help all the computation. See the internal documentation for everyone.

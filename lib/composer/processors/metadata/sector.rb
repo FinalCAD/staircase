@@ -47,14 +47,8 @@ module Composer
 
           metadata[:Sector][:Tags] = tags.flatten.compact.uniq.sort
 
-          file = Tempfile.new(%W[sector_metadata .json])
-          file.write(metadata.to_json)
-          file.rewind
-
+          file = write(%W[sector_metadata .json], metadata.to_json)
           copy(file, sector_path(staircase_model))
-
-          file.close
-          file.unlink # deletes the temp file
 
           nil
         end

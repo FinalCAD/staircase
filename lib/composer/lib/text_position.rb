@@ -8,7 +8,7 @@ module Composer
 
       attr_reader :pointsize
 
-      def initialize(pointsize: 32, image_dimension:, layout_dimension:)
+      def initialize(pointsize:, image_dimension:, layout_dimension:)
         @pointsize        = pointsize
         @image_dimension  = image_dimension
         @layout_dimension = layout_dimension
